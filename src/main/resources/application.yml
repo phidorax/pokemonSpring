@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/default_database
+    username: username
+    password: password
+  jpa:
+    show-sql: true # Pour afficher les requêtes SQL dans la console
+    hibernate:
+      ddl-auto: none # Pour que Spring créer le schèma en lan�ant les migrations
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+
+springdoc:
+  swagger-ui.path: /docs
