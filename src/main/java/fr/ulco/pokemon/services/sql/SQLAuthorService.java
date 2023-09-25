@@ -1,8 +1,12 @@
-package fr.ulco.pokemon.services;
+package fr.ulco.pokemon.services.sql;
 
 import fr.ulco.pokemon.exceptions.AuthorNotFoundException;
+import fr.ulco.pokemon.model.dao.AuthorRepository;
 import fr.ulco.pokemon.model.dto.in.NewAuthorDTO;
 import fr.ulco.pokemon.model.dto.out.AuthorDTO;
+import fr.ulco.pokemon.model.entities.AuthorEntity;
+import fr.ulco.pokemon.model.mappers.AuthorMapper;
+import fr.ulco.pokemon.services.AuthorService;
 import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 
@@ -10,10 +14,10 @@ import java.util.Collection;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public class CachedAuthorService implements AuthorService {
-    
-    private final AuthorService authorService;
-    
+public class SQLAuthorService implements AuthorService {
+
+    private final AuthorRepository authorRepository;
+
     @Override
     public Optional<AuthorDTO> findById(Long id) {
         return Optional.empty();
@@ -21,7 +25,9 @@ public class CachedAuthorService implements AuthorService {
 
     @Override
     public Either<AuthorNotFoundException, AuthorDTO> findByName(String name) {
-        return null;
+        return authorRepository.findByName(name)
+                .toEither(new AuthorNotFoundException())
+                .map(AuthorMapper::toDto);
     }
 
     @Override
@@ -31,6 +37,9 @@ public class CachedAuthorService implements AuthorService {
 
     @Override
     public Collection<String> findNames() {
-        return null;
+        return authorRepository.findAll()
+                .stream()
+                .map(AuthorEntity::getName)
+                .toList();
     }
 }

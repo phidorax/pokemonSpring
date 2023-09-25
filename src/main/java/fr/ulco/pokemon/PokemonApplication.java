@@ -1,5 +1,7 @@
 package fr.ulco.pokemon;
 
+import fr.ulco.pokemon.model.dao.PokemonRepository;
+import fr.ulco.pokemon.model.entities.PokemonEntity;
 import fr.ulco.pokemon.services.AuthorService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,11 +18,9 @@ public class PokemonApplication {
 
     // Bean launched at the start of the app
     @Bean
-    public CommandLineRunner run(final AuthorService authorService) {
+    public CommandLineRunner run(final PokemonRepository pokemonRepository) {
         return (String[] args) -> {
-            authorService.findNames()
-                    .forEach(System.out::println);
-
+            pokemonRepository.findAll().stream().map(PokemonEntity::getName).forEach(System.out::println);
         };
     }
 }

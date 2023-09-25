@@ -22,22 +22,22 @@ public class PokemonEntity {
     private String name;
 
     @Column(name = "hp")
-    private int hp;
+    private Integer hp;
 
     @Column(name = "attack")
-    private int attack;
+    private Integer attack;
 
     @Column(name = "defense")
-    private int defense;
+    private Integer defense;
 
     @Column(name = "special_attack")
-    private int specialAttack;
+    private Integer specialAttack;
 
     @Column(name = "special_defense")
-    private int specialDefense;
+    private Integer specialDefense;
 
     @Column(name = "speed")
-    private int speed;
+    private Integer speed;
 
     @ManyToMany
     @JoinTable(
@@ -45,10 +45,7 @@ public class PokemonEntity {
             joinColumns = @JoinColumn(name = "pokemon_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "type_id", referencedColumnName = "id")
     )
+    private Collection<TypeEntity> types;
 
-    @OneToMany(mappedBy = "type")
-    private Collection<TypeEntity> type1;
 
-    @OneToMany(mappedBy = "type")
-    private Collection<TypeEntity> type2;
 }

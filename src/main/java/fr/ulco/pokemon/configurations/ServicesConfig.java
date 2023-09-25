@@ -2,7 +2,7 @@ package fr.ulco.pokemon.configurations;
 
 import fr.ulco.pokemon.model.dao.AuthorRepository;
 import fr.ulco.pokemon.services.AuthorService;
-import fr.ulco.pokemon.services.SQLAuthorService;
+import fr.ulco.pokemon.services.sql.SQLAuthorService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

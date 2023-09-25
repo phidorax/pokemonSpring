@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Collection;
+
 @Table(name = "type")
 @Entity
 @Setter
@@ -16,8 +18,11 @@ public class TypeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private PokemonEntity pokemon;
+    @Column(name = "name")
+    private String name;
+
+    @ManyToMany(mappedBy = "types")
+    private Collection<PokemonEntity> pokemons;
 
     @ManyToOne
     private MoveEntity move;
