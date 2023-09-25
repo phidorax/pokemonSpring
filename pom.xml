@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>fr.ulco</groupId>
-    <artifactId>minijournal</artifactId>
+    <artifactId>pokemon</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <name>minijournal</name>
