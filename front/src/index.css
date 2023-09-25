@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    font-family: 'Inter';
+}
+.input-text {
+    @apply px-3 py-2 rounded-lg outline-none shadow-sm focus:shadow;
+}
+.input-text.small {
+    @apply px-2 py-1;
+}
+.select {
+    @apply px-3 py-2 rounded-lg outline-none shadow-sm focus:shadow;
+}
+.btn {
+    @apply px-3 py-2 rounded-lg outline-none shadow-sm focus:shadow bg-gradient-to-br from-blue-500 to-blue-600 text-white;
+}
