@@ -13,8 +13,8 @@
     <artifactId>pokemon</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>minijournal</name>
-    <description>minijournal</description>
+    <name>pokemon</name>
+    <description>pokemon</description>
 
     <properties>
         <java.version>17</java.version>

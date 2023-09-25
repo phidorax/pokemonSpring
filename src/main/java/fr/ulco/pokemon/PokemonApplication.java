@@ -20,6 +20,7 @@ public class PokemonApplication {
         return (String[] args) -> {
             authorService.findNames()
                     .forEach(System.out::println);
+
         };
     }
 }

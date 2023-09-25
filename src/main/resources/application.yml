@@ -6,7 +6,7 @@ spring:
   jpa:
     show-sql: true # Pour afficher les requêtes SQL dans la console
     hibernate:
-      ddl-auto: none # Pour que Spring créer le schèma en lan�ant les migrations
+      ddl-auto: none # Pour que Spring créer le schèma en lançant les migrations
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
       dialect: org.hibernate.dialect.PostgreSQLDialect
 
