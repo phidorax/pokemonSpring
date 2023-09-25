@@ -1,5 +1,13 @@
 package fr.ulco.pokemon.services;
 
-public interface TypeService {
+import fr.ulco.pokemon.exceptions.TypeNotFoundException;
+import fr.ulco.pokemon.model.dto.out.TypeDTO;
+import io.vavr.control.Either;
 
+import java.util.Optional;
+
+public interface TypeService {
+    Optional<TypeDTO> findById(final Long id);
+
+    Either<TypeNotFoundException, TypeDTO> findByName(final String name);
 }
