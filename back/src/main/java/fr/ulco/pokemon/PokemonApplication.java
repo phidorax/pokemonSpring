@@ -18,9 +18,7 @@ public class PokemonApplication {
 
     // Bean launched at the start of the app
     @Bean
-    public CommandLineRunner run(final PokemonRepository pokemonRepository) {
-        return (String[] args) -> {
-            pokemonRepository.findAll().stream().map(PokemonEntity::getName).forEach(System.out::println);
-        };
+    public CommandLineRunner run() {
+        return (String[] args) -> {};
     }
 }

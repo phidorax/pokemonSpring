@@ -1,6 +1,8 @@
 package fr.ulco.pokemon.controllers;
 
+import fr.ulco.pokemon.model.dto.in.NewPokemonDTO;
 import fr.ulco.pokemon.model.dto.out.PokemonDTO;
+import fr.ulco.pokemon.model.mappers.PokemonMapper;
 import fr.ulco.pokemon.services.PokemonService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,5 +27,12 @@ public class PokemonController {
         return pokemonService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PostMapping(Routes.POST_POKEMONS)
+    public ResponseEntity<PokemonDTO> createPokemon(@RequestBody final NewPokemonDTO newPokemon) {
+        return pokemonService.createPokemon(newPokemon)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.badRequest().build());
     }
 }

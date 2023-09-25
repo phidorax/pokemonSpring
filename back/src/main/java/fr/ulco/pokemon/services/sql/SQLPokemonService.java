@@ -2,6 +2,7 @@ package fr.ulco.pokemon.services.sql;
 
 import fr.ulco.pokemon.exceptions.PokemonNotFoundException;
 import fr.ulco.pokemon.model.dao.PokemonRepository;
+import fr.ulco.pokemon.model.dto.in.NewPokemonDTO;
 import fr.ulco.pokemon.model.dto.out.PokemonDTO;
 import fr.ulco.pokemon.model.entities.PokemonEntity;
 import fr.ulco.pokemon.model.mappers.PokemonMapper;
@@ -32,5 +33,19 @@ public class SQLPokemonService implements PokemonService {
     @Override
     public Collection<String> findNames() {
         return pokemonRepository.findAll().stream().map(PokemonEntity::getName).toList();
+    }
+
+    @Override
+    public Optional<PokemonDTO> createPokemon(NewPokemonDTO newPokemon) {
+        PokemonEntity pokemonEntity = new PokemonEntity();
+        pokemonEntity.setName(newPokemon.name());
+        pokemonEntity.setHp(newPokemon.hp());
+        pokemonEntity.setAttack(newPokemon.attack());
+        pokemonEntity.setDefense(newPokemon.defense());
+        pokemonEntity.setSpecialAttack(newPokemon.specialAttack());
+        pokemonEntity.setSpecialDefense(newPokemon.specialDefense());
+        pokemonEntity.setSpeed(newPokemon.speed());
+        var saved = pokemonRepository.save(pokemonEntity);
+        return Optional.of(PokemonMapper.toDto(saved));
     }
 }
