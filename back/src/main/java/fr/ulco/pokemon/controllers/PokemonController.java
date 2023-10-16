@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.Collection;
 
 @RestController("Pokemon")
@@ -26,10 +27,10 @@ public class PokemonController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping(Routes.POST_POKEMONS)
-    public ResponseEntity<PokemonDTO> createPokemon(@RequestBody final NewPokemonDTO newPokemon) {
+    @PostMapping(Routes.CREATE_POKEMON)
+    public ResponseEntity<Object> createPokemon(@RequestBody final NewPokemonDTO newPokemon) {
         return pokemonService.createPokemon(newPokemon)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.badRequest().build());
+                .map(uri -> ResponseEntity.created(uri).build())
+                .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 }

@@ -10,6 +10,7 @@ import fr.ulco.pokemon.services.PokemonService;
 import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 
+import java.net.URI;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -36,7 +37,7 @@ public class SQLPokemonService implements PokemonService {
     }
 
     @Override
-    public Optional<PokemonDTO> createPokemon(NewPokemonDTO newPokemon) {
+    public Optional<URI> createPokemon(NewPokemonDTO newPokemon) {
         PokemonEntity pokemonEntity = new PokemonEntity();
         pokemonEntity.setName(newPokemon.name());
         pokemonEntity.setHp(newPokemon.hp());
@@ -46,6 +47,6 @@ public class SQLPokemonService implements PokemonService {
         pokemonEntity.setSpecialDefense(newPokemon.specialDefense());
         pokemonEntity.setSpeed(newPokemon.speed());
         var saved = pokemonRepository.save(pokemonEntity);
-        return Optional.of(PokemonMapper.toDto(saved));
+        return Optional.of(URI.create("/pokemons/" + saved.getId()));
     }
 }

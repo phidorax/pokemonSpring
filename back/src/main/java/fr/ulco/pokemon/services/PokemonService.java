@@ -5,6 +5,7 @@ import fr.ulco.pokemon.model.dto.in.NewPokemonDTO;
 import fr.ulco.pokemon.model.dto.out.PokemonDTO;
 import io.vavr.control.Either;
 
+import java.net.URI;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -15,5 +16,5 @@ public interface PokemonService {
 
     Collection<String> findNames();
 
-    Optional<PokemonDTO> createPokemon(final NewPokemonDTO newPokemon);
+    Optional<URI> createPokemon(final NewPokemonDTO newPokemon);
 }

@@ -1,12 +1,8 @@
-INSERT INTO authors(name)
-VALUES ('Tigran');
-INSERT INTO authors(name)
-VALUES ('Arthur');
+INSERT INTO pokemon (name, hp, attack, defense, speed, special_attack, special_defense)
+VALUES ('Pikachu', 35, 55, 40, 90, 50, 50),
+       ('Charmander', 39, 52, 43, 65, 60, 50),
+       ('Squirtle', 44, 48, 65, 43, 50, 64);
 
-INSERT INTO articles(title, content)
-VALUES ('First article', 'Content of the first article');
 
-INSERT INTO authors_articles(author_id, article_id)
-VALUES (1, 1);
-    
-SELECT * FROM authors;
+SELECT *
+FROM pokemon;
