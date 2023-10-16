@@ -14,7 +14,7 @@ import java.net.URI;
 import java.util.Collection;
 
 @Slf4j
-@RestController
+@RestController("Author")
 @RequiredArgsConstructor
 public class AuthorController {
     private final AuthorService authorService;
