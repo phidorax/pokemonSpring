@@ -1,8 +1,5 @@
 package fr.ulco.pokemon;
 
-import fr.ulco.pokemon.model.dao.PokemonRepository;
-import fr.ulco.pokemon.model.entities.PokemonEntity;
-import fr.ulco.pokemon.services.AuthorService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
