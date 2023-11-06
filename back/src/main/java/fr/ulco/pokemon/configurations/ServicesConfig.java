@@ -18,8 +18,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ServicesConfig {
     @Bean
-    public PokemonService pokemonService(final PokemonRepository pokemonRepository) {
-        return new SQLPokemonService(pokemonRepository);
+    public PokemonService pokemonService(final PokemonRepository pokemonRepository, final TypeRepository typeRepository) {
+        return new SQLPokemonService(pokemonRepository, typeRepository);
     }
 
     @Bean

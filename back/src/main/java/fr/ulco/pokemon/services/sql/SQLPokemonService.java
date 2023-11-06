@@ -2,6 +2,7 @@ package fr.ulco.pokemon.services.sql;
 
 import fr.ulco.pokemon.exceptions.PokemonNotFoundException;
 import fr.ulco.pokemon.model.dao.PokemonRepository;
+import fr.ulco.pokemon.model.dao.TypeRepository;
 import fr.ulco.pokemon.model.dto.in.NewPokemonDTO;
 import fr.ulco.pokemon.model.dto.out.PokemonTypeDTO;
 import fr.ulco.pokemon.model.entities.PokemonEntity;
@@ -11,6 +12,7 @@ import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -18,6 +20,7 @@ import java.util.Optional;
 public class SQLPokemonService implements PokemonService {
 
     private final PokemonRepository pokemonRepository;
+    private final TypeRepository typeRepository;
 
     @Override
     public Optional<PokemonTypeDTO> findById(Long id) {
@@ -46,6 +49,8 @@ public class SQLPokemonService implements PokemonService {
         pokemonEntity.setSpecialAttack(newPokemon.specialAttack());
         pokemonEntity.setSpecialDefense(newPokemon.specialDefense());
         pokemonEntity.setSpeed(newPokemon.speed());
+        pokemonEntity.setTypes(new ArrayList<>());
+        newPokemon.types().stream().toList().forEach(type -> pokemonEntity.getTypes().add(typeRepository.findByName(type.name()).get()));
         var saved = pokemonRepository.save(pokemonEntity);
         return Optional.of(URI.create("/pokemons/" + saved.getId()));
     }
