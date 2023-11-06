@@ -50,7 +50,11 @@ public class SQLPokemonService implements PokemonService {
         pokemonEntity.setSpecialDefense(newPokemon.specialDefense());
         pokemonEntity.setSpeed(newPokemon.speed());
         pokemonEntity.setTypes(new ArrayList<>());
-        newPokemon.types().stream().toList().forEach(type -> pokemonEntity.getTypes().add(typeRepository.findByName(type.name()).get()));
+        try {
+            newPokemon.types().stream().toList().forEach(type -> pokemonEntity.getTypes().add(typeRepository.findByName(type.name()).get()));
+        } catch (Exception e) {
+            System.out.println("Type not found");
+        }
         var saved = pokemonRepository.save(pokemonEntity);
         return Optional.of(URI.create("/pokemons/" + saved.getId()));
     }

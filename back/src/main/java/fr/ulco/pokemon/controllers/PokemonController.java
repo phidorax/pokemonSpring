@@ -1,6 +1,7 @@
 package fr.ulco.pokemon.controllers;
 
 import fr.ulco.pokemon.model.dto.in.NewPokemonDTO;
+import fr.ulco.pokemon.model.dto.in.NewTypeDTO;
 import fr.ulco.pokemon.model.dto.out.PokemonTypeDTO;
 import fr.ulco.pokemon.model.dto.out.TypeDTO;
 import fr.ulco.pokemon.model.dto.out.TypePokemonDTO;
@@ -57,6 +58,13 @@ public class PokemonController {
     @GetMapping(Routes.GET_TYPES)
     public ResponseEntity<Collection<String>> getTypes() {
         return ResponseEntity.ok(typeService.findNames());
+    }
+
+    @PostMapping(Routes.CREATE_TYPE)
+    public ResponseEntity<Object> createType(@RequestBody final NewTypeDTO newType) {
+        return typeService.createType(newType)
+                .map(uri -> ResponseEntity.created(uri).build())
+                .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 
     @GetMapping(Routes.GET_TYPES_DETAILS)

@@ -1,10 +1,6 @@
 DROP TABLE IF EXISTS ability;
 
-DROP TABLE IF EXISTS authors_articles;
-
 DROP TABLE IF EXISTS articles;
-
-DROP TABLE IF EXISTS authors;
 
 DROP TABLE IF EXISTS move_type;
 
@@ -22,33 +18,6 @@ CREATE TABLE ability
         primary key,
     description varchar(255),
     name varchar(255)
-);
-
-CREATE TABLE articles
-(
-    id bigserial
-        primary key,
-    content varchar(255),
-    created_at timestamp default CURRENT_TIMESTAMP,
-    title varchar(255),
-    updated_at timestamp default CURRENT_TIMESTAMP
-);
-
-CREATE TABLE authors
-(
-    id bigserial
-        primary key,
-    name varchar(255)
-);
-
-CREATE TABLE authors_articles
-(
-    author_id bigint not null
-        constraint fkj4l5hhil1lfvydewru8cdyjgb
-            references authors,
-    article_id bigint not null
-        constraint fkmmxwqa8hq2yrl31l8wy654yo0
-            references articles
 );
 
 CREATE TABLE move

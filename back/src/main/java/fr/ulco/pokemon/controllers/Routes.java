@@ -7,6 +7,7 @@ public class Routes {
     public static final String CREATE_POKEMON = "/pokemons/new";
     public static final String GET_ABILITIES = "/abilities";
     public static final String GET_TYPES = "/types";
+    public static final String CREATE_TYPE = "/types/new";
     public static final String GET_TYPES_DETAILS = "/types/{id}";
     public static final String GET_MOVES = "/moves";
 }
