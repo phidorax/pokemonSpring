@@ -2,7 +2,7 @@ package fr.ulco.pokemon.services.sql;
 
 import fr.ulco.pokemon.exceptions.TypeNotFoundException;
 import fr.ulco.pokemon.model.dao.TypeRepository;
-import fr.ulco.pokemon.model.dto.out.TypeDTO;
+import fr.ulco.pokemon.model.dto.out.TypePokemonDTO;
 import fr.ulco.pokemon.model.entities.TypeEntity;
 import fr.ulco.pokemon.model.mappers.TypeMapper;
 import fr.ulco.pokemon.services.TypeService;
@@ -18,12 +18,12 @@ public class SQLTypeService implements TypeService {
     private final TypeRepository TypeRepository;
 
     @Override
-    public Optional<TypeDTO> findById(Long id) {
+    public Optional<TypePokemonDTO> findById(Long id) {
         return TypeRepository.findById(id).map(TypeMapper::toDto);
     }
 
     @Override
-    public Either<TypeNotFoundException, TypeDTO> findByName(String name) {
+    public Either<TypeNotFoundException, TypePokemonDTO> findByName(String name) {
         return TypeRepository.findByName(name)
                 .toEither(new TypeNotFoundException())
                 .map(TypeMapper::toDto);

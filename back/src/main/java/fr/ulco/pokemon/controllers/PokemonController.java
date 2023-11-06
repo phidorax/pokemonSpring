@@ -1,7 +1,9 @@
 package fr.ulco.pokemon.controllers;
 
 import fr.ulco.pokemon.model.dto.in.NewPokemonDTO;
-import fr.ulco.pokemon.model.dto.out.PokemonDTO;
+import fr.ulco.pokemon.model.dto.out.PokemonTypeDTO;
+import fr.ulco.pokemon.model.dto.out.TypeDTO;
+import fr.ulco.pokemon.model.dto.out.TypePokemonDTO;
 import fr.ulco.pokemon.services.PokemonService;
 import fr.ulco.pokemon.services.AbilityService;
 import fr.ulco.pokemon.services.TypeService;
@@ -26,8 +28,16 @@ public class PokemonController {
     }
 
     @GetMapping(Routes.GET_POKEMONS_DETAILS)
-    public ResponseEntity<PokemonDTO> getPokemonDetails(@PathVariable("id") final Long id) {
+    public ResponseEntity<PokemonTypeDTO> getPokemonDetails(@PathVariable("id") final Long id) {
         return pokemonService.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping(Routes.GET_POKEMONS_TYPES)
+    public ResponseEntity<Collection<TypeDTO>> getPokemonTypes(@PathVariable("id") final Long id) {
+        return pokemonService.findById(id)
+                .map(PokemonTypeDTO::types)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -47,6 +57,13 @@ public class PokemonController {
     @GetMapping(Routes.GET_TYPES)
     public ResponseEntity<Collection<String>> getTypes() {
         return ResponseEntity.ok(typeService.findNames());
+    }
+
+    @GetMapping(Routes.GET_TYPES_DETAILS)
+    public ResponseEntity<TypePokemonDTO> getTypeDetails(@PathVariable("id") final Long id) {
+        return typeService.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping(Routes.GET_MOVES)
