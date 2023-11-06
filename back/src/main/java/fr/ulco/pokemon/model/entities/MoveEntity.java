@@ -21,13 +21,13 @@ public class MoveEntity {
     private String name;
 
     @Column(name = "power")
-    private int power;
+    private Integer power;
 
     @Column(name = "accuracy")
-    private int accuracy;
+    private Integer accuracy;
 
     @Column(name = "pp")
-    private int pp;
+    private Integer pp;
 
     @OneToMany
     private Collection<TypeEntity> type;

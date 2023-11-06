@@ -49,7 +49,7 @@ public class InMemoryDBTest {
                 .andExpect(header().exists("Location"))
                 .andExpect(header().string("Location", "/pokemons/4"));
 
-        // Now perform a GET request to verify the Pokemon was created correctly
+        // Now perform a GET request to verify the Pokémon was created correctly
         final var getRequest = MockMvcRequestBuilders.get("/pokemons/4")
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", "Basic " + AuthUtils.basicPayload);
