@@ -46,6 +46,4 @@ public class PokemonEntity {
             inverseJoinColumns = @JoinColumn(name = "type_id", referencedColumnName = "id")
     )
     private Collection<TypeEntity> types;
-
-
 }
