@@ -15,7 +15,7 @@
     <input class="inline-block w-40" type="range" min="1" step="1" max="255" v-model="pokemon[stat]">
   </div>
 
-  <button class="block btn mt-4" @click="console.log(pokemon)">Create a Pokémon</button>
+  <button class="block btn mt-4" @click="createPokemon">Create a Pokémon</button>
 </template>
 
 <script>
@@ -28,16 +28,34 @@ export default {
         hp: 1,
         attack: 1,
         defense: 1,
-        special_attack: 1,
-        special_defense: 1,
+        specialAttack: 1,
+        specialDefense: 1,
         speed: 1
       },
       types: ['NORMAL', 'FIRE', 'WATER', 'PLANT'],
-      baseStats: ['hp', 'attack', 'defense', 'special_attack', 'special_defense', 'speed']
+      baseStats: ['hp', 'attack', 'defense', 'specialAttack', 'specialDefense', 'speed']
     }
   },
-  mounted() {
-    
+  methods: {
+    async createPokemon() {
+      const data = JSON.stringify(this.pokemon);
+      this.resetPokemon();
+
+      await fetch(`http://localhost:8080/pokemons/new`, { method: 'POST', body: data });
+      alert("Pokemon créé !");
+    },
+    resetPokemon() {
+      this.pokemon = {
+        name: '',
+        types: ['', ''],
+        hp: 1,
+        attack: 1,
+        defense: 1,
+        specialAttack: 1,
+        specialDefense: 1,
+        speed: 1
+      };
+    }
   }
 }
 </script>
