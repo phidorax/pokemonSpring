@@ -41,8 +41,12 @@ public class SQLPokemonService implements PokemonService {
     }
 
     @Override
-    public Optional<URI> createPokemon(NewPokemonDTO newPokemon) {
+    public Optional<URI> createPokemon(final NewPokemonDTO newPokemon) {
         PokemonEntity pokemonEntity = new PokemonEntity();
+        return fillPokemonEntity(newPokemon, pokemonEntity);
+    }
+
+    private Optional<URI> fillPokemonEntity(NewPokemonDTO newPokemon, PokemonEntity pokemonEntity) {
         pokemonEntity.setName(newPokemon.name());
         pokemonEntity.setHp(newPokemon.hp());
         pokemonEntity.setAttack(newPokemon.attack());
@@ -58,5 +62,24 @@ public class SQLPokemonService implements PokemonService {
         }
         var saved = pokemonRepository.save(pokemonEntity);
         return Optional.of(URI.create("/pokemons/" + saved.getId()));
+    }
+
+    @Override
+    public Optional<URI> editPokemon(Long id, final NewPokemonDTO newPokemon) {
+        Optional<PokemonEntity> pokemonById = pokemonRepository.findById(id);
+        if (pokemonById.isPresent()) {
+            PokemonEntity pokemonEntity = pokemonById.get();
+            return fillPokemonEntity(newPokemon, pokemonEntity);
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Boolean deletePokemon(Long id) {
+        if (pokemonRepository.findById(id).isPresent()) {
+            pokemonRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

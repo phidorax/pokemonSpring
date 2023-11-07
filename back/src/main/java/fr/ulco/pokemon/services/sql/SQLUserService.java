@@ -13,8 +13,8 @@ import java.net.URI;
 import java.util.Optional;
 
 public class SQLUserService implements UserService {
-    private JdbcUserDetailsManager userDetailsManager;
-    private PasswordEncoder passwordEncoder;
+    private final JdbcUserDetailsManager userDetailsManager;
+    private final PasswordEncoder passwordEncoder;
 
     public SQLUserService(JdbcUserDetailsManager userDetailsManager) {
         this.userDetailsManager = userDetailsManager;

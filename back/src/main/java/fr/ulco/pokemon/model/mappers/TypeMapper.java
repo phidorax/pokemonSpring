@@ -9,7 +9,7 @@ import java.util.List;
 
 public class TypeMapper {
 
-    public static TypePokemonDTO toDto(final TypeEntity entity) {
+    public static TypePokemonDTO toPokemonDto(final TypeEntity entity) {
         List<PokemonDTO> pokemons = new ArrayList<>();
         entity.getPokemons().forEach(pokemon -> pokemons.add(PokemonMapper.toDto(pokemon)));
         return new TypePokemonDTO(entity.getId(), entity.getName(), pokemons);

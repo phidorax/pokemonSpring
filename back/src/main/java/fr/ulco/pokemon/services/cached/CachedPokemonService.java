@@ -14,9 +14,6 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 public class CachedPokemonService implements PokemonService {
-    
-    private final PokemonService PokemonService;
-    
     @Override
     public Optional<PokemonTypeDTO> findById(Long id) {
         return Optional.empty();
@@ -33,7 +30,17 @@ public class CachedPokemonService implements PokemonService {
     }
 
     @Override
-    public Optional<URI> createPokemon(NewPokemonDTO newPokemon) {
+    public Optional<URI> createPokemon(final NewPokemonDTO newPokemon) {
         return Optional.empty();
+    }
+
+    @Override
+    public Optional<URI> editPokemon(Long id, final NewPokemonDTO newPokemon) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Boolean deletePokemon(Long id) {
+        return null;
     }
 }

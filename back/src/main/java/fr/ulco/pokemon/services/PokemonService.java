@@ -18,4 +18,8 @@ public interface PokemonService {
     Collection<PokemonSimpleDTO> findNames();
 
     Optional<URI> createPokemon(final NewPokemonDTO newPokemon);
+
+    Optional<URI> editPokemon(Long id, final NewPokemonDTO newPokemon);
+
+    Boolean deletePokemon(Long id);
 }

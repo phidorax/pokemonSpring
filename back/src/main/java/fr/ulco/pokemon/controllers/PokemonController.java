@@ -1,8 +1,10 @@
 package fr.ulco.pokemon.controllers;
 
+import fr.ulco.pokemon.model.dto.in.NewAbilityDTO;
 import fr.ulco.pokemon.model.dto.in.NewPokemonDTO;
 import fr.ulco.pokemon.model.dto.in.NewTypeDTO;
 import fr.ulco.pokemon.model.dto.in.NewUserDTO;
+import fr.ulco.pokemon.model.dto.in.NewMoveDTO;
 import fr.ulco.pokemon.model.dto.out.*;
 import fr.ulco.pokemon.services.PokemonService;
 import fr.ulco.pokemon.services.AbilityService;
@@ -54,9 +56,47 @@ public class PokemonController {
                 .orElseGet(() -> badRequest().build());
     }
 
+    @PostMapping(Routes.EDIT_POKEMON)
+    public ResponseEntity<Object> editPokemon(@PathVariable("id") final Long id, @RequestBody final NewPokemonDTO newPokemon) {
+        return pokemonService.editPokemon(id, newPokemon)
+                .map(uri -> created(uri).build())
+                .orElseGet(() -> badRequest().build());
+    }
+
+    @DeleteMapping(Routes.DELETE_POKEMON)
+    public BodyBuilder deletePokemon(@PathVariable("id") final Long id) {
+        return pokemonService.deletePokemon(id) ? accepted() : status(204);
+    }
+
     @GetMapping(Routes.GET_ABILITIES)
     public ResponseEntity<Collection<String>> getAbilities() {
         return ok(abilityService.findNames());
+    }
+
+    @GetMapping(Routes.GET_ABILITIES_DETAILS)
+    public ResponseEntity<AbilityDTO> getAbilityDetails(@PathVariable("id") final Long id) {
+        return abilityService.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(notFound().build());
+    }
+
+    @PostMapping(Routes.CREATE_ABILITY)
+    public ResponseEntity<Object> createAbility(@RequestBody final NewAbilityDTO newAbility) {
+        return abilityService.createAbility(newAbility)
+                .map(uri -> created(uri).build())
+                .orElseGet(() -> badRequest().build());
+    }
+
+    @PostMapping(Routes.EDIT_ABILITY)
+    public ResponseEntity<Object> editAbility(@PathVariable("id") final Long id, @RequestBody final NewAbilityDTO newAbility) {
+        return abilityService.editAbility(id, newAbility)
+                .map(uri -> created(uri).build())
+                .orElseGet(() -> badRequest().build());
+    }
+
+    @DeleteMapping(Routes.DELETE_ABILITY)
+    public BodyBuilder deleteAbility(@PathVariable("id") final Long id) {
+        return abilityService.deleteAbility(id) ? accepted() : status(204);
     }
 
     @GetMapping(Routes.GET_TYPES)
@@ -71,6 +111,18 @@ public class PokemonController {
                 .orElseGet(() -> badRequest().build());
     }
 
+    @PostMapping(Routes.EDIT_TYPE)
+    public ResponseEntity<Object> editType(@PathVariable("id") final Long id, @RequestBody final NewTypeDTO newType) {
+        return typeService.editType(id, newType)
+                .map(uri -> created(uri).build())
+                .orElseGet(() -> badRequest().build());
+    }
+
+    @DeleteMapping(Routes.DELETE_TYPE)
+    public BodyBuilder deleteType(@PathVariable("id") final Long id) {
+        return typeService.deleteType(id) ? accepted() : status(204);
+    }
+
     @GetMapping(Routes.GET_TYPES_DETAILS)
     public ResponseEntity<TypePokemonDTO> getTypeDetails(@PathVariable("id") final Long id) {
         return typeService.findById(id)
@@ -82,6 +134,33 @@ public class PokemonController {
     public ResponseEntity<Collection<String>> getMoves() {
         return ok(moveService.findNames());
     }
+
+    @GetMapping(Routes.GET_MOVES_DETAILS)
+    public ResponseEntity<MoveDTO> getMoveDetails(@PathVariable("id") final Long id) {
+        return moveService.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(notFound().build());
+    }
+
+    @PostMapping(Routes.CREATE_MOVE)
+    public ResponseEntity<Object> createMove(@RequestBody final NewMoveDTO newMove) {
+        return moveService.createMove(newMove)
+                .map(uri -> created(uri).build())
+                .orElseGet(() -> badRequest().build());
+    }
+
+    @PostMapping(Routes.EDIT_MOVE)
+    public ResponseEntity<Object> editMove(@PathVariable("id") final Long id, @RequestBody final NewMoveDTO newMove) {
+        return moveService.editMove(id, newMove)
+                .map(uri -> created(uri).build())
+                .orElseGet(() -> badRequest().build());
+    }
+
+    @DeleteMapping(Routes.DELETE_MOVE)
+    public BodyBuilder deleteMove(@PathVariable("id") final Long id) {
+        return moveService.deleteMove(id) ? accepted() : status(204);
+    }
+
 
     @PostMapping(Routes.LOGIN)
     public ResponseEntity<Boolean> login(@RequestBody final UserDTO user) {

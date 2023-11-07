@@ -21,14 +21,14 @@ public class SQLTypeService implements TypeService {
 
     @Override
     public Optional<TypePokemonDTO> findById(Long id) {
-        return typeRepository.findById(id).map(TypeMapper::toDto);
+        return typeRepository.findById(id).map(TypeMapper::toPokemonDto);
     }
 
     @Override
     public Either<TypeNotFoundException, TypePokemonDTO> findByName(String name) {
         return typeRepository.findByName(name)
                 .toEither(new TypeNotFoundException())
-                .map(TypeMapper::toDto);
+                .map(TypeMapper::toPokemonDto);
     }
 
     @Override
@@ -42,5 +42,29 @@ public class SQLTypeService implements TypeService {
         typeEntity.setName(newType.name());
         var saved = typeRepository.save(typeEntity);
         return Optional.of(URI.create("/types/" + saved.getId()));
+    }
+
+    @Override
+    public Optional<URI> editType(Long id, NewTypeDTO newType) {
+        Optional<TypeEntity> typeById = typeRepository.findById(id);
+        if (typeById.isPresent()) {
+            TypeEntity typeEntity = typeById.get();
+            typeEntity.setName(newType.name());
+            var saved = typeRepository.save(typeEntity);
+            return Optional.of(URI.create("/types/" + saved.getId()));
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public Boolean deleteType(Long id) {
+        Optional<TypeEntity> typeById = typeRepository.findById(id);
+        if (typeById.isPresent()) {
+            typeRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -17,4 +17,8 @@ public interface TypeService {
     Collection<String> findNames();
 
     Optional<URI> createType(NewTypeDTO newType);
+
+    Optional<URI> editType(Long id, final NewTypeDTO newType);
+
+    Boolean deleteType(Long id);
 }

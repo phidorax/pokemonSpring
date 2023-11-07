@@ -6,6 +6,6 @@ import fr.ulco.pokemon.model.entities.AbilityEntity;
 public class AbilityMapper {
 
     public static AbilityDTO toDto(final AbilityEntity entity) {
-        return new AbilityDTO(entity.getId(), entity.getName());
+        return new AbilityDTO(entity.getId(), entity.getName(), entity.getDescription());
     }
 }
