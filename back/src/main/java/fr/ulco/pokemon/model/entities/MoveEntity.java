@@ -34,6 +34,4 @@ public class MoveEntity {
 
     @Column(name = "description")
     private String description;
-
-
 }

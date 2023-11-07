@@ -4,16 +4,11 @@ import fr.ulco.pokemon.model.dao.AbilityRepository;
 import fr.ulco.pokemon.model.dao.MoveRepository;
 import fr.ulco.pokemon.model.dao.PokemonRepository;
 import fr.ulco.pokemon.model.dao.TypeRepository;
-import fr.ulco.pokemon.services.AbilityService;
-import fr.ulco.pokemon.services.MoveService;
-import fr.ulco.pokemon.services.PokemonService;
-import fr.ulco.pokemon.services.TypeService;
-import fr.ulco.pokemon.services.sql.SQLAbilityService;
-import fr.ulco.pokemon.services.sql.SQLMoveService;
-import fr.ulco.pokemon.services.sql.SQLPokemonService;
-import fr.ulco.pokemon.services.sql.SQLTypeService;
+import fr.ulco.pokemon.services.*;
+import fr.ulco.pokemon.services.sql.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
 @Configuration
 public class ServicesConfig {
@@ -35,5 +30,10 @@ public class ServicesConfig {
     @Bean
     public MoveService moveService(final MoveRepository moveRepository) {
         return new SQLMoveService(moveRepository);
+    }
+
+    @Bean
+    public UserService userService(final JdbcUserDetailsManager userDetailsManager) {
+        return new SQLUserService(userDetailsManager);
     }
 }

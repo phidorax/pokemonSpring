@@ -2,6 +2,7 @@ package fr.ulco.pokemon.services.cached;
 
 import fr.ulco.pokemon.exceptions.PokemonNotFoundException;
 import fr.ulco.pokemon.model.dto.in.NewPokemonDTO;
+import fr.ulco.pokemon.model.dto.out.PokemonSimpleDTO;
 import fr.ulco.pokemon.model.dto.out.PokemonTypeDTO;
 import fr.ulco.pokemon.services.PokemonService;
 import io.vavr.control.Either;
@@ -27,7 +28,7 @@ public class CachedPokemonService implements PokemonService {
     }
 
     @Override
-    public Collection<String> findNames() {
+    public Collection<PokemonSimpleDTO> findNames() {
         return null;
     }
 

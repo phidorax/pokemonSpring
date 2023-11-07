@@ -11,7 +11,7 @@ public class TypeMapper {
 
     public static TypePokemonDTO toDto(final TypeEntity entity) {
         List<PokemonDTO> pokemons = new ArrayList<>();
-        entity.getPokemons().forEach(pokemon -> pokemons.add(PokemonMapper.toSimpleDto(pokemon)));
+        entity.getPokemons().forEach(pokemon -> pokemons.add(PokemonMapper.toDto(pokemon)));
         return new TypePokemonDTO(entity.getId(), entity.getName(), pokemons);
     }
 }

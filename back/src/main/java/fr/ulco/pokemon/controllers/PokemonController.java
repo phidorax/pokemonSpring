@@ -2,6 +2,8 @@ package fr.ulco.pokemon.controllers;
 
 import fr.ulco.pokemon.model.dto.in.NewPokemonDTO;
 import fr.ulco.pokemon.model.dto.in.NewTypeDTO;
+import fr.ulco.pokemon.model.dto.in.NewUserDTO;
+import fr.ulco.pokemon.model.dto.out.PokemonSimpleDTO;
 import fr.ulco.pokemon.model.dto.out.PokemonTypeDTO;
 import fr.ulco.pokemon.model.dto.out.TypeDTO;
 import fr.ulco.pokemon.model.dto.out.TypePokemonDTO;
@@ -9,6 +11,7 @@ import fr.ulco.pokemon.services.PokemonService;
 import fr.ulco.pokemon.services.AbilityService;
 import fr.ulco.pokemon.services.TypeService;
 import fr.ulco.pokemon.services.MoveService;
+import fr.ulco.pokemon.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +25,10 @@ public class PokemonController {
     private final AbilityService abilityService;
     private final TypeService typeService;
     private final MoveService moveService;
+    private final UserService userService;
 
     @GetMapping(Routes.GET_POKEMONS)
-    public ResponseEntity<Collection<String>> getPokemons() {
+    public ResponseEntity<Collection<PokemonSimpleDTO>> getPokemons() {
         return ResponseEntity.ok(pokemonService.findNames());
     }
 
@@ -77,5 +81,12 @@ public class PokemonController {
     @GetMapping(Routes.GET_MOVES)
     public ResponseEntity<Collection<String>> getMoves() {
         return ResponseEntity.ok(moveService.findNames());
+    }
+
+    @PostMapping(Routes.CREATE_USER)
+    public ResponseEntity<Object> createUser(@RequestBody final NewUserDTO newUser) {
+        return userService.createUser(newUser)
+                .map(uri -> (uri.toString().contains("users")) ? ResponseEntity.created(uri).build() : ResponseEntity.status(409).build())
+                .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 }

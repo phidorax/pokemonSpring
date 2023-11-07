@@ -4,6 +4,7 @@ import fr.ulco.pokemon.exceptions.PokemonNotFoundException;
 import fr.ulco.pokemon.model.dao.PokemonRepository;
 import fr.ulco.pokemon.model.dao.TypeRepository;
 import fr.ulco.pokemon.model.dto.in.NewPokemonDTO;
+import fr.ulco.pokemon.model.dto.out.PokemonSimpleDTO;
 import fr.ulco.pokemon.model.dto.out.PokemonTypeDTO;
 import fr.ulco.pokemon.model.entities.PokemonEntity;
 import fr.ulco.pokemon.model.mappers.PokemonMapper;
@@ -24,19 +25,19 @@ public class SQLPokemonService implements PokemonService {
 
     @Override
     public Optional<PokemonTypeDTO> findById(Long id) {
-        return pokemonRepository.findById(id).map(PokemonMapper::toDto);
+        return pokemonRepository.findById(id).map(PokemonMapper::toTypeDto);
     }
 
     @Override
     public Either<PokemonNotFoundException, PokemonTypeDTO> findByName(String name) {
         return pokemonRepository.findByName(name)
                 .toEither(new PokemonNotFoundException())
-                .map(PokemonMapper::toDto);
+                .map(PokemonMapper::toTypeDto);
     }
 
     @Override
-    public Collection<String> findNames() {
-        return pokemonRepository.findAll().stream().map(PokemonEntity::getName).toList();
+    public Collection<PokemonSimpleDTO> findNames() {
+        return pokemonRepository.findAll().stream().map(PokemonMapper::toSimpleDto).toList();
     }
 
     @Override
