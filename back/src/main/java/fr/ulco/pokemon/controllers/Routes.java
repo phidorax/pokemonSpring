@@ -22,5 +22,6 @@ public class Routes {
     public static final String CREATE_MOVE = "/moves/new";
     public static final String EDIT_MOVE = "/moves/{id}/edit";
     public static final String DELETE_MOVE = "/moves/{id}/delete";
+    public static final String LOGIN = "/login";
     public static final String CREATE_USER = "/users/new";
 }

@@ -1,6 +1,7 @@
 package fr.ulco.pokemon.services.sql;
 
 import fr.ulco.pokemon.model.dto.in.NewUserDTO;
+import fr.ulco.pokemon.model.dto.out.UserDTO;
 import fr.ulco.pokemon.services.UserService;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,14 +14,16 @@ import java.util.Optional;
 
 public class SQLUserService implements UserService {
     private JdbcUserDetailsManager userDetailsManager;
+    private PasswordEncoder passwordEncoder;
 
     public SQLUserService(JdbcUserDetailsManager userDetailsManager) {
         this.userDetailsManager = userDetailsManager;
+        this.passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+
     }
 
     @Override
     public Optional<URI> createUser(NewUserDTO user) {
-        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         UserDetails jdbcUser = User.builder()
                 .username(user.username())
                 .password(passwordEncoder.encode(user.password()))
@@ -31,5 +34,10 @@ public class SQLUserService implements UserService {
             return Optional.of(URI.create("/users/" + jdbcUser.getUsername()));
         }
         return Optional.of(URI.create("/"));
+    }
+
+    @Override
+    public Boolean login(UserDTO user) {
+        return passwordEncoder.matches(user.password(), userDetailsManager.loadUserByUsername(user.username()).getPassword());
     }
 }
