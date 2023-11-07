@@ -3,6 +3,7 @@ package fr.ulco.pokemon.configurations;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -16,6 +17,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import java.util.Collections;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -45,8 +47,8 @@ public class SecurityConfig {
         http.csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .anyRequest()
-                .authenticated()
+                .requestMatchers(HttpMethod.GET, "/**").permitAll() // Autoriser les requêtes GET sans authentification
+                .anyRequest().authenticated() // Exiger une authentification pour toutes les autres requêtes
                 .and()
                 .httpBasic();
         return http.build();
@@ -69,5 +71,4 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
-
 }
