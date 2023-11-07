@@ -11,7 +11,6 @@ Il dispose d'une partie back-end développé avec le framework Spring, une parti
 - FAUQUET Loïc
 - GRARD Axel
 
-<<<<<<< HEAD
 ### Back-end
 
 Une image docker est fournie avec cette base de projet.
@@ -23,9 +22,6 @@ Lancer `psql postgresql://username:password@localhost:5432/default_database` pou
 Dialecte PostgreSQL : `org.hibernate.dialect.PostgreSQLDialect`
 
 ### Front-end
-=======
-## Back-end
->>>>>>> 2efd91c (unification du README.md)
 
 ### Description
 
