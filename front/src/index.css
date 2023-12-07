@@ -6,7 +6,6 @@
     font-family: 'Inter';
     src: url('/font/Inter.ttf');
 }
-
 :root {
     font-family: 'Inter';
 }
@@ -21,4 +20,7 @@
 }
 .btn {
     @apply px-3 py-2 rounded-lg outline-none shadow-sm focus:shadow bg-gradient-to-br from-blue-500 to-blue-600 text-white;
+}
+.btn-icon {
+    @apply p-2 rounded-lg outline-none shadow-sm focus:shadow text-white;
 }
