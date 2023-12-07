@@ -368,6 +368,8 @@ VALUES (1, null, 'stench'),
        (10059, null, 'decoy'),
        (10060, null, 'shield');
 
+SELECT setval('ability_id_seq', (SELECT MAX(id) FROM pokemon));
+
 INSERT INTO move (id, accuracy, description, name)
 VALUES (1, 100, null, 'pound'),
        (2, 100, null, 'karate-chop'),
@@ -1292,6 +1294,8 @@ VALUES (1, 100, null, 'pound'),
        (10017, null, null, 'shadow-shed'),
        (10018, null, null, 'shadow-sky');
 
+SELECT setval('move_id_seq', (SELECT MAX(id) FROM move));
+
 INSERT INTO type (id, name)
 VALUES (1, 'normal'),
        (2, 'fighting'),
@@ -1313,3 +1317,5 @@ VALUES (1, 'normal'),
        (18, 'fairy'),
        (10001, 'unknown'),
        (10002, 'shadow');
+
+SELECT setval('type_id_seq', (SELECT MAX(id) FROM type));
