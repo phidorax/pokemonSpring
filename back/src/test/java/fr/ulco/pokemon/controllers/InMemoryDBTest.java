@@ -21,7 +21,6 @@ import java.util.ArrayList;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ActiveProfiles("test")
 @SpringBootTest
@@ -47,15 +46,15 @@ public class InMemoryDBTest {
         mvc.perform(request)
                 .andExpect(status().isCreated())
                 .andExpect(header().exists("Location"))
-                .andExpect(header().string("Location", "/pokemons/4"));
+                .andExpect(header().string("Location", "/pokemons/1"));
 
         // Now perform a GET request to verify the Pokémon was created correctly
-        final var getRequest = MockMvcRequestBuilders.get("/pokemons/4")
+        final var getRequest = MockMvcRequestBuilders.get("/pokemons/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", "Basic " + AuthUtils.basicPayload);
 
         mvc.perform(getRequest)
                 .andExpect(status().isOk())
-                .andExpect(content().json("{\"id\":4,\"name\":\"Bulbasaur\",\"hp\":45,\"attack\":49,\"defense\":49,\"specialAttack\":45,\"specialDefense\":65,\"speed\":65}"));
+                .andExpect(content().json("{\"id\":1,\"name\":\"Bulbasaur\",\"hp\":45,\"attack\":49,\"defense\":49,\"specialAttack\":45,\"specialDefense\":65,\"speed\":65}"));
     }
 }

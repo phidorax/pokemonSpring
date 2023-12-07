@@ -9,16 +9,12 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -40,14 +36,9 @@ public class AuthenticationIntegrationTest {
      */
     @Test
     public void testAuthentication() throws Exception {
-        final var basicPayload = Base64.getEncoder().encodeToString("admin:admin".getBytes(StandardCharsets.UTF_8));
-        final var rest = new RestTemplateBuilder()
-                .defaultHeader("Authorization", "Basic " + basicPayload)
-                .build();
-
-        final var postRequest = MockMvcRequestBuilders.post("/pokemons/new")
+        final var postRequest = MockMvcRequestBuilders.post("/types/new")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"attack\": 1000, \"defense\": 1000, \"hp\": 1000, \"name\": \"Mewthree\", \"specialAttack\": 1000, \"specialDefense\": 1000, \"speed\": 1000, \"types\": []}")
+                .content("{\"name\": \"TestTypes\"}")
                 .header("Authorization", "Basic " + AuthUtils.basicPayload);
 
         // Get id from header
@@ -60,7 +51,7 @@ public class AuthenticationIntegrationTest {
 
         assert location != null;
 
-        assert location.startsWith("/pokemons/");
+        assert location.startsWith("/types/");
 
         // Get id in the location
         final String id = location.substring(location.lastIndexOf("/") + 1);
@@ -73,6 +64,6 @@ public class AuthenticationIntegrationTest {
 
         mvc.perform(getRequest)
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(content().json("{\"id\":"+id+",\"name\":\"Mewthree\",\"hp\":1000,\"attack\":1000,\"defense\":1000,\"specialAttack\":1000,\"specialDefense\":1000,\"speed\":1000}"));
+                .andExpect(content().json("{\"id\":" + id + ",\"name\":\"TestTypes\"}"));
     }
 }

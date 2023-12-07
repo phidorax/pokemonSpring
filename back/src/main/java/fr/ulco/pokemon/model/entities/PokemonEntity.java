@@ -13,7 +13,6 @@ import java.util.Collection;
 @Getter
 @NoArgsConstructor
 public class PokemonEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
