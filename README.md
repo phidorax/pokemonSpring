@@ -35,7 +35,7 @@ Dialecte PostgreSQL utilisé : `org.hibernate.dialect.PostgreSQLDialect`
 
 ### Description
 
-Le projet front dispose de diverse boutons menant vers des formulaires permettant une interface vers des requêtes fectch faite sur les endpoints de l'API.
+Le projet front dispose de diverse boutons menant vers des formulaires permettant une interface vers des requêtes fetch faite sur les endpoints de l'API.
 
 ### Utilisation
 

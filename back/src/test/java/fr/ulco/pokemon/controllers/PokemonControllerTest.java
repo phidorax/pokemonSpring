@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.mockito.Mockito.when;
@@ -37,21 +38,25 @@ public class PokemonControllerTest {
     public void shouldFindPokemons() throws Exception {
         final var pikachu = new PokemonEntity();
         pikachu.setName("Pikachu");
+        pikachu.setId(1L);
         pikachu.setHp(35);
         pikachu.setAttack(55);
         pikachu.setDefense(40);
         pikachu.setSpeed(90);
         pikachu.setSpecialAttack(50);
         pikachu.setSpecialDefense(50);
+        pikachu.setTypes(new ArrayList<>());
 
         final var charmander = new PokemonEntity();
         charmander.setName("Charmander");
+        charmander.setId(2L);
         charmander.setHp(39);
         charmander.setAttack(52);
         charmander.setDefense(43);
         charmander.setSpeed(65);
         charmander.setSpecialAttack(60);
         charmander.setSpecialDefense(50);
+        charmander.setTypes(new ArrayList<>());
 
         when(pokemonRepository.findAll()).thenReturn(Arrays.asList(pikachu, charmander));
 
@@ -60,7 +65,7 @@ public class PokemonControllerTest {
 
         mvc.perform(request)
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(content().json("[\"Pikachu\", \"Charmander\"]"));
+                .andExpect(content().json("[{\"id\":1,\"name\":\"Pikachu\"},{\"id\":2,\"name\":\"Charmander\"}]"));
     }
 
     @Test
@@ -73,6 +78,7 @@ public class PokemonControllerTest {
         pikachu.setSpeed(90);
         pikachu.setSpecialAttack(50);
         pikachu.setSpecialDefense(50);
+        pikachu.setTypes(new ArrayList<>());
 
         final var charmander = new PokemonEntity();
         charmander.setName("Charmander");
@@ -82,6 +88,7 @@ public class PokemonControllerTest {
         charmander.setSpeed(65);
         charmander.setSpecialAttack(60);
         charmander.setSpecialDefense(50);
+        charmander.setTypes(new ArrayList<>());
 
         when(pokemonRepository.findById(1L))
                 .thenReturn(java.util.Optional.of(pikachu));
@@ -93,12 +100,12 @@ public class PokemonControllerTest {
                 .header("Authorization", "Basic " + AuthUtils.basicPayload);
         mvc.perform(request1)
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(content().json("{\"name\": \"Pikachu\", \"hp\": 35, \"attack\": 55, \"defense\": 40, \"specialAttack\": 50, \"specialDefense\": 50, \"speed\": 90}"));
+                .andExpect(content().json("{\"name\": \"Pikachu\", \"hp\": 35, \"attack\": 55, \"defense\": 40, \"specialAttack\": 50, \"specialDefense\": 50, \"speed\": 90, \"types\": []}"));
 
         final var request2 = MockMvcRequestBuilders.get("/pokemons/2")
                 .header("Authorization", "Basic " + AuthUtils.basicPayload);
         mvc.perform(request2)
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(content().json("{\"name\": \"Charmander\", \"hp\": 39, \"attack\": 52, \"defense\": 43, \"specialAttack\": 60, \"specialDefense\": 50, \"speed\": 65}"));
+                .andExpect(content().json("{\"name\": \"Charmander\", \"hp\": 39, \"attack\": 52, \"defense\": 43, \"specialAttack\": 60, \"specialDefense\": 50, \"speed\": 65, \"types\": []}"));
     }
 }
