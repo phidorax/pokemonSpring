@@ -6,7 +6,7 @@
   <div class="py-16 px-[5%]">
     <p v-if="account.username">
       Bienvenue <strong>{{ account.username }}</strong> ! Vous pouvez créer ou modifier des Pokémon.
-      <button class="block btn my-2" @click="pokemonModalShown = !pokemonModalShown">Créer un Pokémon</button>
+      <button class="block btn my-2" @click="pokemonEditModalShown = !pokemonEditModalShown">Créer un Pokémon</button>
     </p>
     <p v-else>
       Vous n'êtes pas connecté. Connectez-vous pour pouvoir créer ou modifier des Pokémon.
@@ -19,7 +19,6 @@
           <th class="px-8 py-4 w-40"></th>
           <th class="px-8 py-4">ID</th>
           <th class="px-8 py-4">Nom</th>
-          <th class="px-8 py-4">Type</th>
           <th class="px-8 py-4 w-48">Actions</th>
         </tr>
       </thead>
@@ -35,17 +34,14 @@
             {{ pokemon.name }}
           </td>
           <td class="px-8 py-4">
-            TYPE1 TYPE2
-          </td>
-          <td class="px-8 py-4 text-center">
-            <button class="btn-icon bg-blue-500 mr-1">
-              <Eye size="18" />
+            <button class="btn-icon bg-blue-500 mr-1" @click="viewPokemon(pokemon)">
+              <Eye :size="18" />
             </button>
-            <button class="btn-icon bg-orange-500 mr-1">
-              <Pencil size="18" />
+            <button v-show="account.username" class="btn-icon bg-orange-500 mr-1" @click="editPokemon(pokemon)">
+              <Pencil :size="18" />
             </button>
-            <button class="btn-icon bg-red-500">
-              <Delete size="18" />
+            <button v-show="account.username" class="btn-icon bg-red-500" @click="deletePokemon(pokemon)">
+              <Delete :size="18" />
             </button>
           </td>
         </tr>
@@ -53,12 +49,14 @@
     </table>
   </div>
 
-  <ModalLogIn :shown="logInModalShown" :hide-modal="() => logInModalShown = false" :log-in="logIn"></ModalLogIn>
-  <ModalPokemon :shown="pokemonModalShown" :hide-modal="() => pokemonModalShown = false"></ModalPokemon>
+  <ModalLogIn v-if="logInModalShown" :hide-modal="() => logInModalShown = false" :log-in="logIn"></ModalLogIn>
+  <ModalPokemonView v-if="pokemonViewModalShown" :pokemon="pokemon" :hide-modal="() => pokemonViewModalShown = false"></ModalPokemonView>
+  <ModalPokemonEdit v-if="pokemonEditModalShown" :pokemon="pokemon" :hide-modal="() => pokemonEditModalShown = false"></ModalPokemonEdit>
 </template>
 
 <script>
-import ModalPokemon from './components/ModalPokemon.vue';
+import ModalPokemonView from './components/ModalPokemonView.vue';
+import ModalPokemonEdit from './components/ModalPokemonEdit.vue';
 import ModalLogIn from './components/ModalLogIn.vue';
 import Close from 'vue-material-design-icons/Close.vue';
 import Eye from 'vue-material-design-icons/Eye.vue';
@@ -67,7 +65,8 @@ import Delete from 'vue-material-design-icons/Delete.vue';
 
 export default {
   components: {
-    ModalPokemon,
+    ModalPokemonView,
+    ModalPokemonEdit,
     ModalLogIn,
     Close,
     Eye,
@@ -77,17 +76,23 @@ export default {
   props: ['pokemon'],
   data() {
     return {
-      pokemons: [
-        {id: 132, name: 'Metamorph'},
-        {id: 25, name: 'Pikachu'},
-        {id: 384, name: 'Rayquaza'},
-        {id: 722, name: 'Brindibou'},
-      ],
+      pokemons: [],
+      pokemon: {
+        name: '',
+        types: ['', ''],
+        hp: 1,
+        attack: 1,
+        defense: 1,
+        specialAttack: 1,
+        specialDefense: 1,
+        speed: 1
+      },
       account: {
         username: null,
         password: null
       },
-      pokemonModalShown: false,
+      pokemonViewModalShown: false,
+      pokemonEditModalShown: false,
       logInModalShown: false,
     };
   },
@@ -96,7 +101,34 @@ export default {
       this.account.username = username;
       this.account.password = password;
       this.logInModalShown = false;
+    },
+    async viewPokemon(pokemon) {
+      this.pokemon = pokemon;
+      this.pokemonViewModalShown = true;
+
+      const res = await fetch(`http://localhost:8080/pokemons/${pokemon.id}`);
+      const data = await res.json();
+      
+      this.pokemon = data;
+    },
+    editPokemon(pokemon) {
+      console.log(pokemon);
+
+      this.pokemon = pokemon;
+      this.pokemonEditModalShown = true;
+    },
+    deletePokemon(pokemon) {
+      if (confirm(`Êtes-vous sûr de supprimer le Pokémon ${pokemon.name} ? Cette action est irréversible !`)) {
+        console.log(pokemon);
+      }
     }
+  },
+  async mounted() {
+    const res = await fetch(`http://localhost:8080/pokemons`);
+    const data = await res.json();
+    console.log(data);
+
+    this.pokemons = data;
   }
 }
 </script>

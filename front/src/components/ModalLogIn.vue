@@ -1,6 +1,6 @@
 <template>
-  <div v-show="shown" class="fixed top-0 left-0 w-full h-full bg-black opacity-70 z-10" @click="hideModal"></div>
-  <div v-show="shown" class="fixed z-20 rounded-lg overflow-hidden top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-xl">
+  <div class="fixed top-0 left-0 w-full h-full bg-black opacity-70 z-10" @click="hideModal"></div>
+  <div class="fixed z-20 rounded-lg overflow-hidden top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-xl">
     <div class="px-6 py-3 bg-gradient-to-br from-blue-500 to-blue-600 text-white text-lg">
       Connexion
       <close class="cursor-pointer float-right" :size="26" @click="hideModal" />
@@ -23,7 +23,7 @@ export default {
   components: {
     Close
   },
-  props: ['shown', 'hideModal', 'logIn'],
+  props: ['hideModal', 'logIn'],
   data() {
     return {
       account: {
@@ -31,6 +31,19 @@ export default {
         password: ''
       }
     }
+  },
+  methods: {
+    checkShortcut(e) {
+      if (e.key === "Escape") {
+        this.hideModal();
+      }
+    }
+  },
+  mounted() {
+    window.addEventListener('keydown', this.checkShortcut);
+  },
+  unmounted() {
+    window.removeEventListener('keydown', this.checkShortcut);
   }
 }
 </script>
