@@ -31,7 +31,7 @@ public class SQLUserService implements UserService {
                 .build();
         if (!userDetailsManager.userExists(jdbcUser.getUsername())) {
             userDetailsManager.createUser(jdbcUser);
-            return Optional.of(URI.create("/users/" + jdbcUser.getUsername()));
+            return Optional.of(URI.create("/users/" + jdbcUser.getUsername().replaceAll("<>*","")));
         }
         return Optional.of(URI.create("/"));
     }
