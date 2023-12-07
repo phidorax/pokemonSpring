@@ -155,8 +155,8 @@ CREATE UNIQUE INDEX ix_auth_username on authorities (username, authority);
 
 INSERT INTO pokemon (id, name, hp, attack, defense, speed, special_attack, special_defense)
 VALUES (25, 'Pikachu', 35, 55, 40, 90, 50, 50),
-       (4, 'Charmander', 39, 52, 43, 65, 60, 50),
-       (7, 'Squirtle', 44, 48, 65, 43, 50, 64);
+       (4, 'Salamèche', 39, 52, 43, 65, 60, 50),
+       (7, 'Carapuce', 44, 48, 65, 43, 50, 64);
 
 INSERT INTO ability (id, description, name)
 VALUES (1, null, 'stench'),
@@ -1465,6 +1465,4 @@ VALUES (1, 'normal'),
        (15, 'ice'),
        (16, 'dragon'),
        (17, 'dark'),
-       (18, 'fairy'),
-       (10001, 'unknown'),
-       (10002, 'shadow');
+       (18, 'fairy');
