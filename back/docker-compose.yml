@@ -24,13 +24,13 @@ services:
     # but take into consideration that it will change the way
     # you are connecting to your database.
     ports:
-      - 5432:5432
+      - "5432:5432"
 
     environment:
       POSTGRES_USER: username # The PostgreSQL user (useful to connect to the database)
       POSTGRES_PASSWORD: password # The PostgreSQL password (useful to connect to the database)
-      POSTGRES_DB: default_database # The PostgreSQL default database (automatically created at first launch)
+      POSTGRES_DB: pokemon_database # The PostgreSQL default database (automatically created at first launch)
     volumes:
       # In this example, we share an init.sql script with the container
       # The init script will be executed when the database is first run
-      - ./src/test/resources/schema.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./src/test/resources/init.sql:/docker-entrypoint-initdb.d/init.sql

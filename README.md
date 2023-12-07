@@ -11,17 +11,7 @@ Il dispose d'une partie back-end développé avec le framework Spring, une parti
 - FAUQUET Loïc
 - GRARD Axel
 
-### Back-end
-
-Une image docker est fournie avec cette base de projet.
-
-Exécuter `docker compose up` pour lancer celui-ci. Attention : Par défaut, il n'y a pas de volume, donc pas de persistance des données. (Si le docker est détruit, les données également). Nous avons utilisé utilisé [docker-compose-postgres](https://github.com/felipewom/docker-compose-postgres) pour mettre en place facilement ce genre d'outil.
-
-Lancer `psql postgresql://username:password@localhost:5432/default_database` pour se connecter.
-
-Dialecte PostgreSQL : `org.hibernate.dialect.PostgreSQLDialect`
-
-### Front-end
+## Back-end
 
 ### Description
 
@@ -29,14 +19,17 @@ Le projet back est une API permettant de créer des utilisateurs et de gérer de
 
 ### Utilisation
 
-Une image docker est fournis avec cette base de projet.
+Une image docker est fournie avec cette base de projet pour créer la base de données.
 
-Executer `docker compose up` pour lancer celui-ci. Attention par défaut, il n'y a pas de volume, donc pas de persitance
-de données. (Si le docker est détruit, la donnée également). Nous avons utilisé
-ce [projet](https://github.com/felipewom/docker-compose-postgres) pour mettre en place facilement ce genre d'outil.
+Exécuter `docker compose up` pour lancer celui-ci. Attention : Par défaut, il n'y a pas de volume, donc pas de persistance des données.
+(Si le docker est détruit, les données également).
+Nous avons utilisé [le projet docker-compose-postgres](https://github.com/felipewom/docker-compose-postgres) pour mettre en place facilement ce genre d'outil.
 
-Lancer `psql postgresql://username:password@localhost:5432/default_database` pour se connecter à la base de données.
+La base de données crée par le docker compose à toutes les tables nécessaires avec des données dans les tables.
 
+Lancer `psql postgresql://username:password@localhost:5432/pokemon_database` pour se connecter à la base de données.
+
+Dialecte PostgreSQL utilisé : `org.hibernate.dialect.PostgreSQLDialect`
 
 ## Front-end
 
