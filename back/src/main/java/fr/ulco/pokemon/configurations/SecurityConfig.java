@@ -51,6 +51,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.GET, "/**").permitAll() // Autoriser les requêtes GET sans authentification
                 .requestMatchers(HttpMethod.POST, "/login").permitAll() // Autoriser les requêtes login sans authentification
+                .requestMatchers(HttpMethod.POST, "/login/new").permitAll() // Autoriser les requêtes login/new sans authentification
                 .anyRequest().authenticated() // Exiger une authentification pour toutes les autres requêtes
                 .and()
                 .httpBasic();
