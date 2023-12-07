@@ -6,7 +6,7 @@ spring:
   jpa:
     show-sql: true # Pour afficher les requêtes SQL dans la console
     hibernate:
-      ddl-auto: update # Pour créer les tables automatiquement
+      ddl-auto: create-drop # Pour ne pas que Hibernate crée les tables à notre place
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
       dialect: org.hibernate.dialect.PostgreSQLDialect
 

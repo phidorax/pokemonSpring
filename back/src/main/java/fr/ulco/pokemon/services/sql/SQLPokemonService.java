@@ -47,6 +47,7 @@ public class SQLPokemonService implements PokemonService {
     }
 
     private Optional<URI> fillPokemonEntity(NewPokemonDTO newPokemon, PokemonEntity pokemonEntity) {
+        pokemonEntity.setId(newPokemon.id());
         pokemonEntity.setName(newPokemon.name());
         pokemonEntity.setHp(newPokemon.hp());
         pokemonEntity.setAttack(newPokemon.attack());

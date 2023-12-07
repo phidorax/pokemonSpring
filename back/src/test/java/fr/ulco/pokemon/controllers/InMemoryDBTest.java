@@ -36,7 +36,7 @@ public class InMemoryDBTest {
 
     @Test
     public void shouldCreatePokemonAndFindNewCreatedPokemon() throws Exception {
-        final var content = new NewPokemonDTO("Bulbasaur", 45, 49, 49, 45, 65, 65, new ArrayList<>());
+        final var content = new NewPokemonDTO(42L,"Bulbasaur", 45, 49, 49, 45, 65, 65, new ArrayList<>());
 
         final var request = MockMvcRequestBuilders.post(Routes.CREATE_POKEMON)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -46,15 +46,15 @@ public class InMemoryDBTest {
         mvc.perform(request)
                 .andExpect(status().isCreated())
                 .andExpect(header().exists("Location"))
-                .andExpect(header().string("Location", "/pokemons/1"));
+                .andExpect(header().string("Location", "/pokemons/42"));
 
         // Now perform a GET request to verify the Pokémon was created correctly
-        final var getRequest = MockMvcRequestBuilders.get("/pokemons/1")
+        final var getRequest = MockMvcRequestBuilders.get("/pokemons/42")
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", "Basic " + AuthUtils.basicPayload);
 
         mvc.perform(getRequest)
                 .andExpect(status().isOk())
-                .andExpect(content().json("{\"id\":1,\"name\":\"Bulbasaur\",\"hp\":45,\"attack\":49,\"defense\":49,\"specialAttack\":45,\"specialDefense\":65,\"speed\":65}"));
+                .andExpect(content().json("{\"id\":42,\"name\":\"Bulbasaur\",\"hp\":45,\"attack\":49,\"defense\":49,\"specialAttack\":45,\"specialDefense\":65,\"speed\":65}"));
     }
 }
