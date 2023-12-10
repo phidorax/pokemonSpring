@@ -11,6 +11,10 @@ Il dispose d'une partie back-end développé avec le framework Spring, une parti
 - FAUQUET Loïc
 - GRARD Axel
 
+
+## Schéma de l'infrastructure n-tier
+[![Schéma](schema.svg)](https://app.diagrams.net/?src=about#Hphidorax%2FpokemonSpring%2Fmaster%2Fschema.drawio "Voir le Schéma sur draw.io")
+
 ## Back-end
 
 ### Description
