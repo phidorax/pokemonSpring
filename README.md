@@ -1,16 +1,14 @@
 # Pokémon Spring
 
-Ce projet a pour objectif la conception d'un "Pokédex" soit un regroupement de "Pokemon", des entités avec diverses caractéristiques, ceux-ci pourront être ajouté, modifié où supprimer par un utilisateur authentifié.
+Ce projet a pour objectif la conception d'un "Pokédex" soit une encyclopédie de Pokémon, des entités avec diverses caractéristiques. Ceux-ci pourront être ajoutés, modifiés où supprimés par un utilisateur authentifié.
 
-Il dispose d'une partie back-end développé avec le framework Spring, une partie front-end développé avec VueJS et une base de données sous PostgreSQL.
-
+Il dispose d'une partie back-end développé avec le framework Spring et une base de données sous PostgreSQL, ainsi qu'une partie front-end développée avec VueJS.
 
 ### Groupe
 
 - DETEUF Rémi
 - FAUQUET Loïc
 - GRARD Axel
-
 
 ## Schéma de l'infrastructure n-tier
 [![Schéma](schema.svg)](https://app.diagrams.net/?src=about#Hphidorax%2FpokemonSpring%2Fmaster%2Fschema.drawio "Voir le Schéma sur draw.io")
@@ -19,7 +17,7 @@ Il dispose d'une partie back-end développé avec le framework Spring, une parti
 
 ### Description
 
-Le projet back est une API permettant de créer des utilisateurs et de gérer des pokemons.
+La partie back-end est une API permettant de créer des utilisateurs et de gérer des Pokémon.
 
 ### Utilisation
 
@@ -43,4 +41,12 @@ Le projet front dispose de diverse boutons menant vers des formulaires permettan
 
 ### Utilisation
 
-Une fois à l'interieur du dossier front (via `cd front`), il suffit de mettre a jour les packages avec `npm install` puis on peut lancer le projet sans compilation avec `npm run dev`.
+Lancer le front-end en mode développement :
+
+```cd front
+npm install
+npm run dev```
+
+Faire un build du front-end :
+
+```npm run build```
