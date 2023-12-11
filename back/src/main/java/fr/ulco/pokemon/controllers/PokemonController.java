@@ -1,16 +1,8 @@
 package fr.ulco.pokemon.controllers;
 
-import fr.ulco.pokemon.model.dto.in.NewAbilityDTO;
-import fr.ulco.pokemon.model.dto.in.NewPokemonDTO;
-import fr.ulco.pokemon.model.dto.in.NewTypeDTO;
-import fr.ulco.pokemon.model.dto.in.NewUserDTO;
-import fr.ulco.pokemon.model.dto.in.NewMoveDTO;
+import fr.ulco.pokemon.model.dto.in.*;
 import fr.ulco.pokemon.model.dto.out.*;
-import fr.ulco.pokemon.services.PokemonService;
-import fr.ulco.pokemon.services.AbilityService;
-import fr.ulco.pokemon.services.TypeService;
-import fr.ulco.pokemon.services.MoveService;
-import fr.ulco.pokemon.services.UserService;
+import fr.ulco.pokemon.services.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -64,8 +56,8 @@ public class PokemonController {
     }
 
     @DeleteMapping(Routes.DELETE_POKEMON)
-    public BodyBuilder deletePokemon(@PathVariable("id") final Long id) {
-        return pokemonService.deletePokemon(id) ? accepted() : status(204);
+    public ResponseEntity<Boolean> deletePokemon(@PathVariable("id") final Long id) {
+        return pokemonService.deletePokemon(id) ? accepted().build() : noContent().build();
     }
 
     @GetMapping(Routes.GET_ABILITIES)
@@ -95,8 +87,8 @@ public class PokemonController {
     }
 
     @DeleteMapping(Routes.DELETE_ABILITY)
-    public BodyBuilder deleteAbility(@PathVariable("id") final Long id) {
-        return abilityService.deleteAbility(id) ? accepted() : status(204);
+    public ResponseEntity<Boolean> deleteAbility(@PathVariable("id") final Long id) {
+        return abilityService.deleteAbility(id) ? accepted().build() : noContent().build();
     }
 
     @GetMapping(Routes.GET_TYPES)
@@ -119,8 +111,8 @@ public class PokemonController {
     }
 
     @DeleteMapping(Routes.DELETE_TYPE)
-    public BodyBuilder deleteType(@PathVariable("id") final Long id) {
-        return typeService.deleteType(id) ? accepted() : status(204);
+    public ResponseEntity<Boolean> deleteType(@PathVariable("id") final Long id) {
+        return typeService.deleteType(id) ? accepted().build() : noContent().build();
     }
 
     @GetMapping(Routes.GET_TYPES_DETAILS)
@@ -157,8 +149,8 @@ public class PokemonController {
     }
 
     @DeleteMapping(Routes.DELETE_MOVE)
-    public BodyBuilder deleteMove(@PathVariable("id") final Long id) {
-        return moveService.deleteMove(id) ? accepted() : status(204);
+    public ResponseEntity<Boolean> deleteMove(@PathVariable("id") final Long id) {
+        return moveService.deleteMove(id) ? accepted().build() : noContent().build();
     }
 
 
